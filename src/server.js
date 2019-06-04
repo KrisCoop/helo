@@ -20,6 +20,20 @@ massive(process.env.CONNECTION_STRING)
         .catch((err) => {
             console.log(`Man you is have broken ass server guy: ${err}`)
         })
+
+
+app.post('/Auth/Register', (req, res, next) => {
+    const db = req.app.get('db');
+    const {username, password} = req.body;
+    const userImage = `https://robohash.org/${username}`;
+    db.users_helo1.insert({
+        username,
+        password,
+        userImage
+    })
+})
+
+
 const port = process.env.PORT || 8080
 
 app.listen(port, () => {

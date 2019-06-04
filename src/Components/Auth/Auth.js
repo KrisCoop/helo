@@ -27,6 +27,8 @@ class Auth extends Component{
                             <label>Username: <input className="Username" placeholder="Username" name="username" value={this.state.username} onChange={this.updateInput}></input></label>
                             <label>Password: <input className="Password" placeholder="Password" name="password" value={this.state.password} onChange={this.updateInput}></input></label>
                         </div>
+                        <button className="Login" onClick={}>Login</button>
+                        <button className="Register" onCLick={}>Register</button>
                 </div>
             </div>
         )
