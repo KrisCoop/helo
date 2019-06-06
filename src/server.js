@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 const controller = require('./controller.js');
 import { HashRouter as Router, Link } from 'react-router-dom';
+import Axios from 'axios';
 
 const app = express();
 app.use(express.json());
@@ -18,21 +19,12 @@ massive(process.env.CONNECTION_STRING)
             app.set('db', dbInstance)
         })
         .catch((err) => {
-            console.log(`Man you is have broken ass server guy: ${err}`)
+            console.log(`Man you is have broken server guy: ${err}`)
         })
 
 
-app.post('/Auth/Register', (req, res, next) => {
-    const db = req.app.get('db');
-    const {username, password} = req.body;
-    const userImage = `https://robohash.org/${username}`;
-    db.users_helo1.insert({
-        username,
-        password,
-        userImage
-    })
-})
-
+app.post('/Auth/Register', controller.register);
+app.post('/Auth/Login', controller.login);
 
 const port = process.env.PORT || 8080
 
