@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import './Nav.css';
 
@@ -16,4 +17,4 @@ class Nav extends Component{
     }
 }
 
-export default Nav;
+export default connect(state => state)(Nav);

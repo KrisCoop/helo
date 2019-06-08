@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import './Auth.css';
 import axios from 'axios';
 
@@ -25,7 +25,17 @@ class Auth extends Component{
             password: this.state.password
         }
         axios.post('/Auth/Register', newUser)
-        this.props.history.push('/dashboard');
+        .then((response)=>{
+            if(response.data.success){
+                this.props.dispatch({ //This object is our 'action'
+                    type:'user',
+                    payload: response.data.user,
+                })
+                this.props.history.push('/dashboard');
+            }else{
+                alert('bad credentials')
+            }
+        })
     }
 
     loginUser = () => {
@@ -33,8 +43,20 @@ class Auth extends Component{
             username: this.state.username,
             password: this.state.password
         }
-        axios.post('/Auth/Login', user);
-        this.props.history.push('/dashboard');
+        axios.post('/Auth/Login', user)
+            .then((response)=>{
+                //checking to see if login was successfull
+                if(response.data.success){
+                    //dispatches user object to redux store.
+                    this.props.dispatch({
+                        type:'user',
+                        payload: response.data.user,
+                    })
+                    //push them to dashboard view..
+                    this.props.history.push('/dashboard')
+                }else{
+                alert('bad credentials')
+            }});
     }
 
     render(){
